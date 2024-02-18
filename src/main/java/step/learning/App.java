@@ -19,8 +19,8 @@ public class App
     {
         // System.out.println( "Hello World!" );
         // new Basics().run();
-         new FileIo().run();
-        // new OopDemo().run();
+//         new FileIo().run();
+         new OopDemo().run();
         // new AsyncDemo().run();
         // new DbDemo().run();
 

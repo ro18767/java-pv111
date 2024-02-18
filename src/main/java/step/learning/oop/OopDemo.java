@@ -15,6 +15,7 @@ public class OopDemo {
             catalog.add(new OldBook("M. Twen", "Tom Soyer"));
             catalog.add(new Newspaper("Daily Mail", "2024-01-29"));
             catalog.add(new Journal( "ArgC & ArgV", 123));
+            catalog.add(new PaperMap( "Одеська область" , 50000));
         }
         catch (Exception ex) {
             System.err.println( "Literature add error: " + ex.getMessage() ) ;
