@@ -22,6 +22,7 @@ public class Journal extends Literature implements Copyable, Periodic {
                 super.getTitle(), this.getNumber() ) ;
     }
 
+
     @Override
     public String getPeriod() {
         return "Monthly";

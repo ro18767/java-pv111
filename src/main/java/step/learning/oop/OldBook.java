@@ -15,6 +15,11 @@ public class OldBook extends Book {  // залишаються інтерфей�
     public String getOwnCard() {
         return "--Old" + super.getCard();
     }
+
+    @CardAddon
+    public String getAddonCard() {
+        return "--Addon" + super.getCard();
+    }
 }
 /*
 Оголосити класи OldMap (OldNewspaper) з анотацією @Used,

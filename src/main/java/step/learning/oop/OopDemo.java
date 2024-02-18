@@ -33,6 +33,8 @@ public class OopDemo {
         printPeriodic();
         System.out.println("--------- OLD ------------");
         printOld();
+        System.out.println("--------- CardAddon ------------");
+        printAddon();
     }
 
     private void printOld() {
@@ -55,6 +57,24 @@ public class OopDemo {
                         catch (IllegalAccessException | InvocationTargetException ex) {
                             System.err.println( ex.getMessage() );
                         }
+                    }
+                }
+            }
+        }
+    }
+
+    private void printAddon() {
+        for( Literature literature : catalog ) {
+            // Reflection (об'єктна рефлексія) - засоби "самоаналізу" об'єктів
+            Class<?> type = literature.getClass() ;  // ~GetType(C#)
+            for(Method method : type.getDeclaredMethods()) {
+                if(method.isAnnotationPresent(CardAddon.class)) {
+                    try {
+                        method.setAccessible(true);
+                        System.out.println( method.invoke(literature) );
+                    }
+                    catch (IllegalAccessException | InvocationTargetException ex) {
+                        System.err.println( ex.getMessage() );
                     }
                 }
             }
