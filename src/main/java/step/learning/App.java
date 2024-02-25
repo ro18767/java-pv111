@@ -20,8 +20,8 @@ public class App
         // System.out.println( "Hello World!" );
         // new Basics().run();
 //         new FileIo().run();
-         new OopDemo().run();
-        // new AsyncDemo().run();
+//         new OopDemo().run();
+         new AsyncDemo().run();
         // new DbDemo().run();
 
         // Injector injector = Guice.createInjector( new ServiceModule() ) ;   // модуль IoC

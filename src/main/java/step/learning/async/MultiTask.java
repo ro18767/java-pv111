@@ -1,6 +1,9 @@
 package step.learning.async;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.*;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -12,6 +15,7 @@ public class MultiTask {
         // Continuations - нитки коду
         // task1.1 - task1.2  -- нитка (задачі, що мають йти послідовно)
         // task2.1 - task2.2  -- інша нитка, яка може йти паралельно з першою
+
         Supplier<String> supplier = () -> {   // ~ Callable
             try {
                 Thread.sleep(1000);
@@ -115,6 +119,56 @@ public class MultiTask {
         taskPool.shutdown();
         System.out.printf("%d ms: MultiTask finishes\n",
                 (System.nanoTime() - startTime) / tick );
+    }
+
+    public void demoDz() {
+
+
+        Function<Integer, Integer> transform = (source) -> {
+            try {
+                Thread.sleep(1000);
+                return source;
+            }
+            catch (InterruptedException e) {
+                System.err.println("Sleeping interrupted");
+                return 0;
+            }
+            finally {
+                System.out.println("transform task finishes " + source);
+            }
+        };
+
+        AtomicReference<String> result = new AtomicReference<>("");
+
+        Consumer<Integer> consumer = (source) -> {
+            result.updateAndGet(val -> {
+                String new_val = val + source;
+                System.out.println("consumer task finishes " + new_val);
+                return new_val;
+            });
+
+        };
+
+        List<Future<?>> taskList = new ArrayList<>();
+        for (int i = 1; i < 10; i++) {
+            Future<?> task = CompletableFuture.completedFuture(i)
+                    .thenApplyAsync(transform, taskPool)
+                    .thenAccept(consumer);
+            taskList.add(task);
+        }
+
+        for (Future<?> task : taskList) {
+            try {
+                task.get();
+            } catch (InterruptedException | ExecutionException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        taskPool.shutdown();
+
+
+        System.out.println("MultiTask finishes");
     }
 }
 /*

@@ -4,7 +4,7 @@ public class AsyncDemo {
     public void run() {
         System.out.println("Demo starts");
         // new MultiThread().demo();
-        new MultiTask().demo();
+        new MultiTask().demoDz();
         System.out.println("Demo finishes");
     }
 }
