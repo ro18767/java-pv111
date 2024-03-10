@@ -43,14 +43,12 @@ public class DbDemo {
          - повторних запитів з різними параметрами (по днях, по місяцях тощо)
          - захисту від інжекцій при наявності даних ненадійного походження
          */
-        String sql = "INSERT INTO randoms(rand_int, rand_str) VALUES (?, ?)";
+        String sql = "INSERT INTO randoms(rand_int, rand_str) VALUES (?, UUID())";
         try( PreparedStatement prep = connection.prepareStatement( sql ) ) {
             prep.setInt( 1, random.nextInt() ) ;  // 1й знак "?"
-            prep.setString( 2, codeGenerator.newCode(10) ) ;
             prep.executeUpdate();
             // підготовлений запит можна виконувати кількаразово
             prep.setInt( 1, random.nextInt() ) ;  // 1й знак "?"
-            prep.setString( 2, codeGenerator.newCode(7) ) ;
             prep.executeUpdate();
             System.out.println( "Insert OK" ) ;
         }
