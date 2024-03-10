@@ -12,6 +12,9 @@ public class IocDemo {
     private final HashService hashService ;
     private final CodeGenerator codeGenerator ;
 
+    @Inject @Named("split")
+    private CodeGenerator splitCodeGenerator;
+
     @Inject
     public IocDemo(@Named("hash-160") HashService hashService, CodeGenerator codeGenerator) {
         this.hashService = hashService;
@@ -23,6 +26,7 @@ public class IocDemo {
         System.out.println( hashService.hash("123") );
         System.out.println( hashServiceField.hash("123") );
         System.out.println( codeGenerator.newCode(20) ) ;
+        System.out.println( splitCodeGenerator.newCode(20) ) ;
         // System.out.println( hashService.hashCode() + " " + hashServiceField.hashCode() );
     }
 

@@ -8,6 +8,7 @@ import step.learning.services.hash.Md5HashService;
 import step.learning.services.hash.Sha1HashService;
 import step.learning.services.rnd.CodeGenerator;
 import step.learning.services.rnd.DigitCodeGenerator;
+import step.learning.services.rnd.DigitSplitCodeGenerator;
 
 import java.sql.Connection;
 import java.sql.Driver;
@@ -34,6 +35,10 @@ public class ServiceModule extends AbstractModule implements AutoCloseable {
         bind( Random.class ).toInstance( new Random() );
 
         bind( CodeGenerator.class ).to( DigitCodeGenerator.class ) ;
+
+        bind( CodeGenerator.class )
+                .annotatedWith( Names.named("split") )
+                .to( DigitSplitCodeGenerator.class ) ;
     }
 
     private Connection connection ;
